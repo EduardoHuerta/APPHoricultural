@@ -51,10 +51,6 @@ class MenuActivity : AppCompatActivity() {
             ImagePicker.REQUEST_CODE -> {
                 val fileUri = data?.data
                 logd("Uri: $fileUri")
-                val file: File = ImagePicker.getFile(data)!!
-                logd("File: $file")
-                val filePah: String = ImagePicker.getFilePath(data)!!
-                logd("Path: $filePah")
                 sendUri(fileUri)
             }
         }
