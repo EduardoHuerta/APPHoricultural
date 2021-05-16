@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce8faf35-8b18-4aaa-aa4f-9f2812ffb302" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/android/app/src/main/assets/detect.tflite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/assets/labelmap.txt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/assets/labelmap.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/android/app/src/main/java/org/tensorflow/lite/examples/detection/util/Extensions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/org/tensorflow/lite/examples/detection/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/org/tensorflow/lite/examples/detection/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/org/tensorflow/lite/examples/detection/ui/MenuActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/org/tensorflow/lite/examples/detection/ui/MenuActivity.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

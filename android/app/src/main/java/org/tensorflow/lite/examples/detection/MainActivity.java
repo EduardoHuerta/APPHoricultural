@@ -1,22 +1,34 @@
 package org.tensorflow.lite.examples.detection;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
@@ -32,52 +44,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        cameraButton = findViewById(R.id.cameraButton);
-        detectButton = findViewById(R.id.detectButton);
-        imageView = findViewById(R.id.imageView);
-
-        cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
-
-        detectButton.setOnClickListener(v -> {
-            Handler handler = new Handler();
-
-            new Thread(() -> {
-                final List<Classifier.Recognition> results = detector.recognizeImage(cropBitmap);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        handleResult(cropBitmap, results);
-                    }
-                });
-            }).start();
-
-        });
-        this.sourceBitmap = Utils.getBitmapFromAsset(MainActivity.this, "kite.jpg");
-
-        this.cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
-
-        this.imageView.setImageBitmap(cropBitmap);
-
-        initBox();
-    }
-
     private static final Logger LOGGER = new Logger();
 
     public static final int TF_OD_API_INPUT_SIZE = 416;
-
     private static final boolean TF_OD_API_IS_QUANTIZED = false;
-
     private static final String TF_OD_API_MODEL_FILE = "yolov4-416-fp32.tflite";
-
     private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco.txt";
-
     // Minimum detection confidence to track a detection.
     private static final boolean MAINTAIN_ASPECT = false;
     private Integer sensorOrientation = 90;
@@ -91,12 +63,75 @@ public class MainActivity extends AppCompatActivity {
 
     protected int previewWidth = 0;
     protected int previewHeight = 0;
-
     private Bitmap sourceBitmap;
     private Bitmap cropBitmap;
-
     private Button cameraButton, detectButton;
     private ImageView imageView;
+
+    public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
+    public static final String BITMAP_KEY = "bitmap_key";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        cameraButton = findViewById(R.id.cameraButton);
+        detectButton = findViewById(R.id.detectButton);
+        imageView = findViewById(R.id.imageView);
+
+        detectButton.setOnClickListener(v -> detectPhoto());
+//        cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
+
+        Uri fileUri = Uri.parse(getIntent().getExtras().getString(BITMAP_KEY));
+
+        Glide.with(this)
+                .asBitmap()
+                .load(fileUri)
+                .into(new SimpleTarget<Bitmap>(){
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                sourceBitmap = resource;
+                cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
+                imageView.setImageBitmap(cropBitmap);
+                initBox();
+                detectPhoto();
+            }
+        });
+
+        /*try {
+            if (Build.VERSION.SDK_INT < 28) {
+                this.sourceBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), fileUri);
+            } else {
+                ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), fileUri);
+                this.sourceBitmap = ImageDecoder.decodeBitmap(source);
+            }
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }*/
+
+     /*   this.cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
+//        this.cropBitmap = sourceBitmap;
+
+        */
+
+    }
+
+    private void detectPhoto() {
+        Handler handler = new Handler();
+
+        new Thread(() -> {
+            final List<Classifier.Recognition> results = detector.recognizeImage(cropBitmap);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    handleResult(cropBitmap, results);
+                }
+            });
+        }).start();
+    }
+
+
 
     private void initBox() {
         previewHeight = TF_OD_API_INPUT_SIZE;
@@ -158,5 +193,12 @@ public class MainActivity extends AppCompatActivity {
 //        tracker.trackResults(mappedRecognitions, new Random().nextInt());
 //        trackingOverlay.postInvalidate();
         imageView.setImageBitmap(bitmap);
+        if (results.isEmpty()){
+            showSnackbar("No se encontraron coincidencias.");
+        }
+    }
+
+    private void showSnackbar(String message){
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 }
