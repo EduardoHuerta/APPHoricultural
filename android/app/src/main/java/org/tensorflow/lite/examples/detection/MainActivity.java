@@ -3,6 +3,9 @@ package org.tensorflow.lite.examples.detection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -37,8 +41,10 @@ import org.tensorflow.lite.examples.detection.env.Utils;
 import org.tensorflow.lite.examples.detection.tflite.Classifier;
 import org.tensorflow.lite.examples.detection.tflite.YoloV4Classifier;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
+import org.tensorflow.lite.examples.detection.ui.gallery_detector.CoincidencesAdapter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
     private Bitmap cropBitmap;
     private Button cameraButton, detectButton;
     private ImageView imageView;
+    private RecyclerView recyclerView;
+    private CoincidencesAdapter adapter;
+    private ArrayList<Classifier.Recognition> coincidences = new ArrayList<>();
 
     public static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
     public static final String BITMAP_KEY = "bitmap_key";
@@ -79,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
         cameraButton = findViewById(R.id.cameraButton);
         detectButton = findViewById(R.id.detectButton);
         imageView = findViewById(R.id.imageView);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new CoincidencesAdapter(coincidences);
+        recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), LinearLayout.VERTICAL));
 
         detectButton.setOnClickListener(v -> detectPhoto());
 //        cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
@@ -130,8 +144,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }).start();
     }
-
-
 
     private void initBox() {
         previewHeight = TF_OD_API_INPUT_SIZE;
@@ -195,6 +207,10 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
         if (results.isEmpty()){
             showSnackbar("No se encontraron coincidencias.");
+        }else {
+            coincidences.clear();
+            coincidences.addAll(results);
+            adapter.notifyDataSetChanged();
         }
     }
 
