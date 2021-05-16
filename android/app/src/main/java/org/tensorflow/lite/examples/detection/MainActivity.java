@@ -90,16 +90,15 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CoincidencesAdapter(coincidences);
+        adapter = new CoincidencesAdapter(coincidences, this);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), LinearLayout.VERTICAL));
 
         detectButton.setOnClickListener(v -> detectPhoto());
 //        cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
 
         Uri fileUri = Uri.parse(getIntent().getExtras().getString(BITMAP_KEY));
 
-        Glide.with(this)
+        GlideApp.with(this)
                 .asBitmap()
                 .load(fileUri)
                 .into(new SimpleTarget<Bitmap>(){

@@ -1,17 +1,19 @@
 package org.tensorflow.lite.examples.detection.ui.gallery_detector
 
+import android.content.Context
 import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.tensorflow.lite.examples.detection.R
 import org.tensorflow.lite.examples.detection.databinding.LayoutCoincidenceBinding
 import org.tensorflow.lite.examples.detection.tflite.Classifier
 
-class CoincidencesAdapter(private val results: ArrayList<Classifier.Recognition>): RecyclerView.Adapter<CoincidencesAdapter.ViewHolder>() {
+class CoincidencesAdapter(private val results: ArrayList<Classifier.Recognition>, private val context: Context): RecyclerView.Adapter<CoincidencesAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: LayoutCoincidenceBinding): RecyclerView.ViewHolder(binding.root){
         fun bindData(data: Classifier.Recognition){
             binding.title.text = data.title
-            binding.coincidence.text = data.confidence.toString()
+            binding.coincidence.text = context.resources.getString(R.string.percentage_text, data.confidence.times(100))
         }
     }
 
