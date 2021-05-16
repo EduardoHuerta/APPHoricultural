@@ -31,7 +31,7 @@
             android:name=".DetectorActivity"
             android:label="@string/tfe_od_app_name"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.gallery_detector.MainActivity">
             <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

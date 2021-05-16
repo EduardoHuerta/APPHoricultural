@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.tensorflow.lite.examples.detection;
+package org.tensorflow.lite.examples.detection.ui.real_time_detector;
 
 import android.Manifest;
 import android.app.Fragment;
@@ -50,6 +50,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.nio.ByteBuffer;
+
+import org.tensorflow.lite.examples.detection.CameraConnectionFragment;
+import org.tensorflow.lite.examples.detection.LegacyCameraConnectionFragment;
+import org.tensorflow.lite.examples.detection.R;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
 

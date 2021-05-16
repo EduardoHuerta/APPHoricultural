@@ -1,39 +1,30 @@
-package org.tensorflow.lite.examples.detection;
+package org.tensorflow.lite.examples.detection.ui.gallery_detector;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.tensorflow.lite.examples.detection.GlideApp;
+import org.tensorflow.lite.examples.detection.R;
 import org.tensorflow.lite.examples.detection.customview.OverlayView;
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
@@ -41,7 +32,6 @@ import org.tensorflow.lite.examples.detection.env.Utils;
 import org.tensorflow.lite.examples.detection.tflite.Classifier;
 import org.tensorflow.lite.examples.detection.tflite.YoloV4Classifier;
 import org.tensorflow.lite.examples.detection.tracking.MultiBoxTracker;
-import org.tensorflow.lite.examples.detection.ui.gallery_detector.CoincidencesAdapter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -71,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
     protected int previewHeight = 0;
     private Bitmap sourceBitmap;
     private Bitmap cropBitmap;
-    private Button cameraButton, detectButton;
     private ImageView imageView;
     private RecyclerView recyclerView;
     private CoincidencesAdapter adapter;
@@ -85,16 +74,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cameraButton = findViewById(R.id.cameraButton);
-        detectButton = findViewById(R.id.detectButton);
         imageView = findViewById(R.id.imageView);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new CoincidencesAdapter(coincidences, this);
         recyclerView.setAdapter(adapter);
-
-        detectButton.setOnClickListener(v -> detectPhoto());
-//        cameraButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, DetectorActivity.class)));
 
         Uri fileUri = Uri.parse(getIntent().getExtras().getString(BITMAP_KEY));
 
@@ -111,22 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 detectPhoto();
             }
         });
-
-        /*try {
-            if (Build.VERSION.SDK_INT < 28) {
-                this.sourceBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), fileUri);
-            } else {
-                ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(), fileUri);
-                this.sourceBitmap = ImageDecoder.decodeBitmap(source);
-            }
-        } catch (Exception e ) {
-            e.printStackTrace();
-        }*/
-
-     /*   this.cropBitmap = Utils.processBitmap(sourceBitmap, TF_OD_API_INPUT_SIZE);
-//        this.cropBitmap = sourceBitmap;
-
-        */
 
     }
 
@@ -195,14 +163,8 @@ public class MainActivity extends AppCompatActivity {
             final RectF location = result.getLocation();
             if (location != null && result.getConfidence() >= MINIMUM_CONFIDENCE_TF_OD_API) {
                 canvas.drawRect(location, paint);
-//                cropToFrameTransform.mapRect(location);
-//
-//                result.setLocation(location);
-//                mappedRecognitions.add(result);
             }
         }
-//        tracker.trackResults(mappedRecognitions, new Random().nextInt());
-//        trackingOverlay.postInvalidate();
         imageView.setImageBitmap(bitmap);
         if (results.isEmpty()){
             showSnackbar("No se encontraron coincidencias.");

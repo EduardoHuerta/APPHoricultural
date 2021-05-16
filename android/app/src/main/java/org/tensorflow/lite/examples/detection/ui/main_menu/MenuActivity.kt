@@ -9,12 +9,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.github.dhaval2404.imagepicker.ImagePicker
 import org.tensorflow.lite.examples.detection.DetectorActivity
-import org.tensorflow.lite.examples.detection.MainActivity
+import org.tensorflow.lite.examples.detection.ui.gallery_detector.MainActivity
 import org.tensorflow.lite.examples.detection.databinding.ActivityMenuBinding
 import org.tensorflow.lite.examples.detection.util.logd
 import org.tensorflow.lite.examples.detection.util.toastShort
 import java.io.ByteArrayOutputStream
-import java.io.File
 
 
 class MenuActivity : AppCompatActivity() {
