@@ -9,7 +9,6 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         }
         imageView.setImageBitmap(bitmap);
         if (results.isEmpty()){
-            showSnackbar("No se encontraron coincidencias.");
+            showSnackbar();
         }else {
             coincidences.clear();
             coincidences.addAll(results);
@@ -175,7 +174,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void showSnackbar(String message){
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
+    private void showSnackbar(){
+        Snackbar.make(findViewById(android.R.id.content), "No se encontraron coincidencias.", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Reintentar", view -> { detectPhoto(); })
+                .show();
     }
 }
