@@ -1,16 +1,30 @@
 package org.tensorflow.lite.examples.detection.ui.main_menu
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import com.github.dhaval2404.imagepicker.ImagePicker
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.tensorflow.lite.examples.detection.DetectorActivity
+import org.tensorflow.lite.examples.detection.R
+import org.tensorflow.lite.examples.detection.data.Constants
 import org.tensorflow.lite.examples.detection.ui.gallery_detector.MainActivity
 import org.tensorflow.lite.examples.detection.databinding.ActivityMenuBinding
+import org.tensorflow.lite.examples.detection.ui.login.LoginActivity
 import org.tensorflow.lite.examples.detection.util.logd
 import org.tensorflow.lite.examples.detection.util.toastShort
 import java.io.ByteArrayOutputStream
@@ -25,8 +39,25 @@ class MenuActivity : AppCompatActivity() {
         binding = ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val sharedPref = getSharedPreferences(
+                getString(R.string.app_name), Context.MODE_PRIVATE)
+
+        val isLogged: Boolean = sharedPref.getBoolean(Constants.UserData.SESSION_STATUS_KEY, false)
+
+        if (!(isLogged)){
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
         binding.image.setOnClickListener { showImagePicker() }
         binding.realTime.setOnClickListener { startActivity(Intent(this, DetectorActivity::class.java)) }
+        binding.logout.setOnClickListener {
+            with (sharedPref.edit()) {
+                putBoolean(Constants.UserData.SESSION_STATUS_KEY, false)
+                apply()
+            }
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
     }
 
     private fun showImagePicker(){

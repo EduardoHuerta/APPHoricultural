@@ -15,11 +15,16 @@
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:requestLegacyExternalStorage="true"
         android:label="@string/tfe_od_app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ObjectDetection">
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login">
+
+        </activity>
         <activity android:name=".ui.main_menu.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,13 +35,16 @@
         <activity
             android:name=".DetectorActivity"
             android:label="@string/tfe_od_app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.gallery_detector.MainActivity">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
     </application>
 
