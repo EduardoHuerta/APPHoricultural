@@ -5,4 +5,7 @@
     <color name="tfe_color_accent">#425066</color>
 
     <color name="tfe_semi_transparent">#66000000</color>
+
+    <color name="green_primary">#6EC62B</color>
+    <color name="green_primary_dark">#4F8E20</color>
 </resources>

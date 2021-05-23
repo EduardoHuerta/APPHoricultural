@@ -9,7 +9,6 @@
 
     <Button
         android:id="@+id/image"
-        style="@style/Widget.App.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
@@ -22,7 +21,6 @@
 
     <Button
         android:id="@+id/real_time"
-        style="@style/Widget.App.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
