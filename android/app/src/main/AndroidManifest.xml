@@ -1,31 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tensorflow.lite.examples.detection">
+    package="org.eveh.plantdetector">
 
     <uses-sdk />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/tfe_od_app_name"
+        android:label="@string/plantdetector_app_name"
+        android:name=".ApplicationBase"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ObjectDetection">
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name="org.eveh.plantdetector.ui.login.LoginActivity"
             android:label="@string/title_activity_login">
 
         </activity>
-        <activity android:name=".ui.main_menu.MenuActivity">
+        <activity android:name="org.eveh.plantdetector.ui.main_menu.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,10 +36,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetectorActivity"
-            android:label="@string/tfe_od_app_name"
+            android:name="org.eveh.plantdetector.DetectorActivity"
+            android:label="@string/plantdetector_app_name"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.gallery_detector.MainActivity">
+        <activity android:name="org.eveh.plantdetector.ui.gallery_detector.MainActivity">
 
             <!--
             <intent-filter>
