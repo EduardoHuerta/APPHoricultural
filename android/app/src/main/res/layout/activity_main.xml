@@ -29,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <org.tensorflow.lite.examples.detection.customview.OverlayView
+    <org.eveh.plantdetector.customview.OverlayView
         android:id="@+id/tracking_overlay"
         android:layout_width="416dp"
         android:layout_height="416dp"
