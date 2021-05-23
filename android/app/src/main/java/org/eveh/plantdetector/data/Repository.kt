@@ -1,5 +1,11 @@
 package org.eveh.plantdetector.data
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import org.eveh.plantdetector.data.model.LoggedInUser
 
 /**
@@ -9,38 +15,24 @@ import org.eveh.plantdetector.data.model.LoggedInUser
 
 class Repository(val dataSource: DataSource) {
 
-    // in-memory cache of the loggedInUser object
-    var user: LoggedInUser? = null
-        private set
+    private lateinit var database: DatabaseReference
 
-    val isLoggedIn: Boolean
-        get() = user != null
+    fun loginFirebase(username: String, password: String): LiveData<LoggedInUser>{
+        var loggedInUser = MutableLiveData<LoggedInUser>()
 
-    init {
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
-        user = null
-    }
-
-    fun logout() {
-        user = null
-        dataSource.logout()
-    }
-
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.login(username, password)
-
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
+        database = Firebase.database.reference
+        database.child("login").child(username).child("password").get().addOnSuccessListener {
+            Log.d("LOGIN", "login: ${it.value}")
+            when {
+                it.value == null -> {
+                    loggedInUser.value = LoggedInUser(false,"El usuario no existe.")
+                }
+                it.value.toString() != password -> {
+                    loggedInUser.value = LoggedInUser(false,"Contraseña incorrecta.")
+                }
+                else -> loggedInUser.value = LoggedInUser(true,"Inicio de sesión exitoso.")
+            }
         }
-
-        return result
-    }
-
-    private fun setLoggedInUser(loggedInUser: LoggedInUser) {
-        this.user = loggedInUser
-        // If user credentials will be cached in local storage, it is recommended it be encrypted
-        // @see https://developer.android.com/training/articles/keystore
+        return loggedInUser
     }
 }

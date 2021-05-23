@@ -1,5 +1,9 @@
 package org.eveh.plantdetector.data
 
+import android.util.Log
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import org.eveh.plantdetector.data.model.LoggedInUser
 import java.io.IOException
 
@@ -8,17 +12,4 @@ import java.io.IOException
  */
 class DataSource {
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        return try {
-            // TODO: handle loggedInUser authentication
-            val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            Result.Success(fakeUser)
-        } catch (e: Throwable) {
-            Result.Error(IOException("Error logging in", e))
-        }
-    }
-
-    fun logout() {
-        // TODO: revoke authentication
-    }
 }

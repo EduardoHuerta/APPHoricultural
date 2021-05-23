@@ -6,27 +6,20 @@ import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import org.eveh.plantdetector.R
 import org.eveh.plantdetector.data.Repository
-import org.eveh.plantdetector.data.Result
+import org.eveh.plantdetector.data.model.LoggedInUser
 import org.eveh.plantdetector.data.model.LoginFormState
-import org.eveh.plantdetector.data.model.LoginResult
 
 class LoginViewModel(private val repository: Repository) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
-
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = repository.login(username, password)
-
-        if (result is Result.Success) {
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
+    fun login(username: String, password: String): LiveData<LoggedInUser>{
+        val mutableData = MutableLiveData<LoggedInUser>()
+        repository.loginFirebase(username, password).observeForever {
+            mutableData.value = it
         }
+        return mutableData
     }
 
     fun loginDataChanged(username: String, password: String) {
