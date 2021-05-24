@@ -3,10 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme.ObjectDetection" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryDark">@color/green_primary_dark</item>
-        <item name="colorAccent">@color/tfe_color_accent</item>
-        <item name="fontFamily">sans-serif-light</item>
+        <item name="colorAccent">@color/green_primary</item>
+        <item name="fontFamily">@font/montserrat</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.App.Button.OutlinedButton</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
     </style>
@@ -15,13 +15,10 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="textAllCaps">false</item>
-        <item name="android:textFontWeight">500</item>
     </style>
 
     <style name="Widget.App.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.TextButton</item>
-        <item name="strokeColor">@color/green_primary</item>
-        <item name="strokeWidth">1dp</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="textAllCaps">false</item>
     </style>
@@ -42,9 +39,8 @@
 
     <style name="Widget.App.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="hintTextColor">@android:color/white</item>
-        <item name="android:textColorHint">@android:color/white</item>
         <item name="boxStrokeColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
     </style>
 
 </resources>

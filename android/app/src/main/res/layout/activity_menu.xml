@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main_menu.MenuActivity"
-    android:padding="32dp">
+    android:padding="32dp"
+    android:background="@color/green_primary">
 
     <Button
         android:id="@+id/image"
