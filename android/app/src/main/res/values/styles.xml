@@ -9,6 +9,7 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.App.Button.OutlinedButton</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
@@ -41,6 +42,16 @@
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="boxStrokeColor">@android:color/white</item>
         <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorOnSecondary">@android:color/white</item>
+        <item name="colorSecondary">@color/green_primary_dark</item>
+<!--        <item name="colorOnSurface">@color/shrine_pink_900</item>-->
     </style>
 
 </resources>
