@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int TF_OD_API_INPUT_SIZE = 416;
     private static final boolean TF_OD_API_IS_QUANTIZED = false;
-    private static final String TF_OD_API_MODEL_FILE = "yolov4-416-fp32.tflite";
-    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/coco.txt";
+    private static final String TF_OD_API_MODEL_FILE = "yolov4-416-24-clasest.tflite";
+    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/etiquetas_labels.txt";
     // Minimum detection confidence to track a detection.
     private static final boolean MAINTAIN_ASPECT = false;
     private Integer sensorOrientation = 90;

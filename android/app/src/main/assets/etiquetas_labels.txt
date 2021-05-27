@@ -1,0 +1,24 @@
+Cucumber_healthy
+Radish_healthy
+Melon_healthy
+Serrano-bell-pepper_healthy
+Basil_healthy
+Pumpkin_healthy
+Sweet-potato_healthy
+Pineapple_healthy
+Watermelon_healthy
+Chiltepin_bell_pepper_healthy
+Basil_downy mildew
+Cucumber_angular_leaf_spot
+Cucumber_gummy_stem_blight
+Cucumber_mosaic_virus
+Chiltepin_bell_pepper_early_blight
+Melon_angular_leaf_spot
+Melon_gummy_stem_blight
+Radish_fusarium_rot
+Pumpkin_leaf_blight
+Cucumber_whitefly
+Basil_blotch_leafminer
+Spinach_healthy
+Melon_whitefly
+Chiltepin_bell_pepper_whitefly
