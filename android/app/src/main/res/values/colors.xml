@@ -9,5 +9,5 @@
     <color name="green_primary">#6EC62B</color>
     <color name="green_primary_dark">#4F8E20</color>
 
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@android:color/white</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#6EC62B</color>
 </resources>
