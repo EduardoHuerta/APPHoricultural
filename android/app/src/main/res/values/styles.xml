@@ -3,12 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme.ObjectDetection" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryDark">@color/green_primary_dark</item>
         <item name="colorAccent">@android:color/white</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.App.Button.OutlinedButton</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="floatingActionButtonStyle">@style/Widget.App.FloatingActionButton</item>
     </style>
 
     <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
@@ -33,14 +34,24 @@
     </style>
 
     <style name="ThemeOverlay.App.Button" parent="">
-        <item name="colorPrimary">@color/design_default_color_on_primary</item>
-        <item name="colorOnPrimary">@color/green_primary</item>
+        <item name="colorOnPrimary">@color/design_default_color_on_primary</item>
+        <item name="colorPrimary">@color/green_primary</item>
     </style>
 
     <style name="Widget.App.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
-        <item name="boxStrokeColor">@android:color/white</item>
-        <item name="android:textColorHint">@android:color/white</item>
+        <item name="boxStrokeColor">@color/green_primary</item>
+        <item name="android:textColorHint">@color/green_primary</item>
+    </style>
+
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorSecondary">@android:color/white</item>
+        <item name="colorOnSecondary">@color/green_primary_dark</item>
+<!--        <item name="colorOnSurface">@color/shrine_pink_900</item>-->
     </style>
 
 </resources>
