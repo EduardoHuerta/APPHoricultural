@@ -7,6 +7,7 @@
     tools:context=".ui.main_menu.MenuActivity">
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/bakcground_menu_v2"
@@ -20,14 +21,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="64dp"
-        android:layout_marginTop="50dp"
         android:layout_marginBottom="16dp"
         android:text="Imagen"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/real_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <Button
         android:id="@+id/real_time"
@@ -35,10 +35,10 @@
         android:layout_height="0dp"
         android:layout_marginHorizontal="64dp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="100dp"
+
         android:text="Tiempo real"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image" />
@@ -53,5 +53,27 @@
         android:src="@drawable/ic_round_logout_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        app:layout_constraintVertical_bias=".05"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

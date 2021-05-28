@@ -12,7 +12,8 @@ class CoincidencesAdapter(private val results: ArrayList<Classifier.Recognition>
     inner class ViewHolder(val binding: LayoutCoincidenceBinding): RecyclerView.ViewHolder(binding.root){
         fun bindData(data: Classifier.Recognition){
             binding.title.text = data.title
-            binding.coincidence.text = context.resources.getString(R.string.percentage_text, data.confidence.times(100))
+            var p: Float = String.format("%.2f", data.confidence.times(100)).toFloat()
+            binding.coincidence.text = "${p}%"
         }
     }
 
