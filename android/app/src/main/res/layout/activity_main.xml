@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.gallery_detector.MainActivity">
 
 
     <Button
@@ -17,31 +17,19 @@
         app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toEndOf="@+id/detectButton"
         app:layout_constraintTop_toTopOf="@+id/detectButton"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/detectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="126dp"
-        android:text="Detect"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintVertical_bias="0.0"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="416dp"
         android:layout_height="416dp"
         android:scaleType="fitStart"
-        app:layout_constraintBottom_toTopOf="@+id/detectButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/kite" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <org.tensorflow.lite.examples.detection.customview.OverlayView
+    <org.eveh.plantdetector.customview.OverlayView
         android:id="@+id/tracking_overlay"
         android:layout_width="416dp"
         android:layout_height="416dp"
@@ -49,4 +37,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:itemCount="2"
+        tools:listitem="@layout/layout_coincidence" />
+
+    <Button
+        android:id="@+id/detectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="126dp"
+        android:text="Detect"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
